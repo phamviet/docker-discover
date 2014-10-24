@@ -40,7 +40,13 @@ def get_services():
 
     for i in backends.children:
 
-        if i.key[1:].count("/") != 2:
+        segments = i.key[1:].count("/")
+
+        if segments == 2:
+            ignore, service, container = i.key[1:].split("/")
+        elif segments == 3:
+            ignore, ignore, service, container = i.key[1:].split("/")
+        else:
             continue
 
         ignore, service, container = i.key[1:].split("/")
